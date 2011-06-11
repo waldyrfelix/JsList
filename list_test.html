@@ -17,138 +17,139 @@
 <script type="text/javascript">
     //TODO: removeAt,insert,indexOf,find,sort
     module("count");
-
-    test("iniciar lista vazia devolve count == 0", function () {
-        var lista = new List();
-        equals(lista.count(), 0);
+	
+    test("test create empty list returns count == 0", function () {
+		// arrange
+        var list = new List();
+		
+		// assert
+        equals(list.count(), 0);
     });
-    test("adicionar um item na lista count == 1", function () {
-        var lista = new List();
-        lista.add("item 1");
-        equals(lista.count(), 1);
+    test("test when to add an item in the list returns count == 1", function () {
+        // arrange
+		var list = new List();
+        list.add("item 1");
+		
+		// assert
+        equals(list.count(), 1);
     });
-    test("adicionar dois itens na lista count == 2", function () {
-        var lista = new List();
-        lista.add("item 1");
-        lista.add("item 2");
-        equals(lista.count(), 2);
+    test("test when to add two itens in the list returns count == 2", function () {
+        // arrange
+		var list = new List();
+        list.add("item 1");
+        list.add("item 2");
+		
+		// assert
+        equals(list.count(), 2);
     });
 
     module("empty");
-
-    test("esvaziar uma lista já vazia count == 0", function () {
+    test("test when empty an list already empty returns count == 0", function () {
         // arrange
-        var lista = new List();
+        var list = new List();
 
         // act
-        lista.empty();
+        list.empty();
 
         // assert
-        equals(lista.count(), 0);
+        equals(list.count(), 0);
     });
-
-    test("esvaziar uma lista com 2 itens count == 0", function () {
+    test("test when empty an list with two itens returns count == 0", function () {
         // arrange
-        var lista = new List();
-        lista.add("di");
-        lista.add("2di");
+        var list = new List();
+        list.add("di");
+        list.add("2di");
 
         // act
-        lista.empty();
+        list.empty();
 
         // assert
-        equals(lista.count(), 0);
+        equals(list.count(), 0);
     });
 
     module("remove");
-
-    test("remover item de uma lista vazia não faz nada", function () {
+    test("test when remove an item in an empty list returns count == 0", function () {
         // arrange
-        var lista = new List();
+        var list = new List();
 
         // act
-        lista.remove("343");
+        list.remove("343");
 
         // assert
-        equals(lista.count(), 0);
+        equals(list.count(), 0);
     });
-
-    test("remover única string da lista count == 0", function () {
+    test("test when remove an unique item in the list returns count == 0", function () {
         // arrange
-        var lista = new List();
-        lista.add("xuxu");
+        var list = new List();
+        list.add("xuxu");
 
         // act
-        lista.remove("xuxu");
+        list.remove("xuxu");
 
         // assert
-        equals(lista.count(), 0);
+        equals(list.count(), 0);
     });
-
-    test("remover item que não exite da lista não faz nada", function () {
+    test("test when remove an item that does not exists in the list does nothing", function () {
         // arrange
-        var lista = new List();
-        lista.add("xuxu");
+        var list = new List();
+        list.add("xuxu");
 
         // act
-        lista.remove(102.2);
+        list.remove(102.2);
 
         // assert
-        equals(lista.count(), 1);
+        equals(list.count(), 1);
     });
-
-    test("remover item numa lista com 2 fica lista de 1 que não é o removido", function () {
+    test("test when remove an item in the list with two itens left one item in the list", function () {
         // arrange
-        var lista = new List();
-        lista.add(25);
-        lista.add(45.3);
+        var list = new List();
+        list.add(25);
+        list.add(45.3);
 
         // act
-        lista.remove(25);
+        list.remove(25);
 
         // assert
-        equals(lista.count(), 1);
-        equals(lista.get(0), 45.3);
+        equals(list.count(), 1);
+        equals(list.get(0), 45.3);
     });
-
-    test("remover 2 itens numa lista com 3 fica lista de 1 que não é os removidos", function () {
+    test("test when remove two itens in a list with three itens left one item in the list", function () {
         // arrange
-        var lista = new List();
+        var list = new List();
         var arr = [2, 5];
-        lista.add(arr);
-        lista.add("str");
-        lista.add(45.3);
+        list.add(arr);
+        list.add("str");
+        list.add(45.3);
 
         // act
-        lista.remove(arr);
-        lista.remove(45.3);
+        list.remove(arr);
+        list.remove(45.3);
 
         // assert
-        equals(lista.count(), 1);
-        equals(lista.get(0), "str");
+        equals(list.count(), 1);
+        equals(list.get(0), "str");
     });
-
-    test("remover 1 item numa lista com 4 fica lista de 3 objetos iguais aos inseridos", function () {
+    test("test when remove one item in a list with four itens left three of them", function () {
         // arrange
         var item1 = [2, 5];
         var item2 = new Object();
         var item3 = new Date();
         var item4 = 0.36201;
 
-        var lista = new List();
-        lista.add(item1);
-        lista.add(item2);
-        lista.add(item3);
-        lista.add(item4);
+        var list = new List();
+        list.add(item1);
+        list.add(item2);
+        list.add(item3);
+        list.add(item4);
 
         // act
-        lista.remove(item1);
+        list.remove(item1);
 
         // assert
-        equals(lista.count(), 3);
-        same(lista.get(0), item2);
-        same(lista.get(1), item3);
-        same(lista.get(2), item4);
+        equals(list.count(), 3);
+        same(list.get(0), item2);
+        same(list.get(1), item3);
+        same(list.get(2), item4);
     });
 
     module("get");

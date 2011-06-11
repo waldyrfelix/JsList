@@ -12,20 +12,20 @@ function List(){
             internalList.splice(0, this.count());
         },
         get: function (index) {
-            if (this.count() == 0) {
+            if (this.count() == 0)
                 throw new Error("The list is empty.");
-            }
-			if(index < 0 || index >= this.count()){
+				
+			if(index < 0 || index >= this.count())
 				throw new Error("The index is out of range.");
-			}
+			
             return internalList[index];
         },
         remove: function (item) {
             var indexToRemove = -1;
 
-            for (var i = 0; i < this.count(); i++) {
-                if (item == internalList[i]) {
-                    indexToRemove = i;
+            for (var index = 0; index < this.count(); index++) {
+                if (item == internalList[index]) {
+                    indexToRemove = index;
                     break;
                 }
             }
