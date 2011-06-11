@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="jslib/qunit.css" />
+    <script type="text/javascript" src="jslib/jquery-latest.js"></script>
+    <script type="text/javascript" src="jslib/qunit.js"></script>
+    <script type="text/javascript" src="list.js"></script>
+</head>
+<body>
+    <h1 id="qunit-header">QUnit example</h1>
+    <h2 id="qunit-banner"></h2>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+</body>
+</html>
+
+<script type="text/javascript">
+    //TODO: removeAt,insert,indexOf,find,sort
+    module("count");
+
+    test("iniciar lista vazia devolve count == 0", function () {
+        var lista = new List();
+        equals(lista.count(), 0);
+    });
+    test("adicionar um item na lista count == 1", function () {
+        var lista = new List();
+        lista.add("item 1");
+        equals(lista.count(), 1);
+    });
+    test("adicionar dois itens na lista count == 2", function () {
+        var lista = new List();
+        lista.add("item 1");
+        lista.add("item 2");
+        equals(lista.count(), 2);
+    });
+
+    module("empty");
+
+    test("esvaziar uma lista já vazia count == 0", function () {
+        // arrange
+        var lista = new List();
+
+        // act
+        lista.empty();
+
+        // assert
+        equals(lista.count(), 0);
+    });
+
+    test("esvaziar uma lista com 2 itens count == 0", function () {
+        // arrange
+        var lista = new List();
+        lista.add("di");
+        lista.add("2di");
+
+        // act
+        lista.empty();
+
+        // assert
+        equals(lista.count(), 0);
+    });
+
+    module("remove");
+
+    test("remover item de uma lista vazia não faz nada", function () {
+        // arrange
+        var lista = new List();
+
+        // act
+        lista.remove("343");
+
+        // assert
+        equals(lista.count(), 0);
+    });
+
+    test("remover única string da lista count == 0", function () {
+        // arrange
+        var lista = new List();
+        lista.add("xuxu");
+
+        // act
+        lista.remove("xuxu");
+
+        // assert
+        equals(lista.count(), 0);
+    });
+
+    test("remover item que não exite da lista não faz nada", function () {
+        // arrange
+        var lista = new List();
+        lista.add("xuxu");
+
+        // act
+        lista.remove(102.2);
+
+        // assert
+        equals(lista.count(), 1);
+    });
+
+    test("remover item numa lista com 2 fica lista de 1 que não é o removido", function () {
+        // arrange
+        var lista = new List();
+        lista.add(25);
+        lista.add(45.3);
+
+        // act
+        lista.remove(25);
+
+        // assert
+        equals(lista.count(), 1);
+        equals(lista.get(0), 45.3);
+    });
+
+    test("remover 2 itens numa lista com 3 fica lista de 1 que não é os removidos", function () {
+        // arrange
+        var lista = new List();
+        var arr = [2, 5];
+        lista.add(arr);
+        lista.add("str");
+        lista.add(45.3);
+
+        // act
+        lista.remove(arr);
+        lista.remove(45.3);
+
+        // assert
+        equals(lista.count(), 1);
+        equals(lista.get(0), "str");
+    });
+
+    test("remover 1 item numa lista com 4 fica lista de 3 objetos iguais aos inseridos", function () {
+        // arrange
+        var item1 = [2, 5];
+        var item2 = new Object();
+        var item3 = new Date();
+        var item4 = 0.36201;
+
+        var lista = new List();
+        lista.add(item1);
+        lista.add(item2);
+        lista.add(item3);
+        lista.add(item4);
+
+        // act
+        lista.remove(item1);
+
+        // assert
+        equals(lista.count(), 3);
+        same(lista.get(0), item2);
+        same(lista.get(1), item3);
+        same(lista.get(2), item4);
+    });
+
+    module("get");
+
+    test("get item in an empty list throws error", function () {
+        // arrange
+        var list = new List();
+
+        // assert
+        raises(function () {
+            list.get(0);
+        }, 
+        function (error) { 
+            return error.message == "The list is empty.";
+        });
+    });
+
+    test("test if to get item with index -1 throws range error", function () {
+        // arrange
+        var list = new List();
+        list.add("first one");
+
+        // assert
+        raises(function () {
+            list.get(-1);
+        },
+        function (error) {
+            return error.message == "The index is out of range.";
+        });
+    });
+	
+    test("test if to get item that does not exists in the list throws range error", function () {
+        // arrange
+        var list = new List();
+        list.add("first one");
+
+        // assert
+        raises(function () {
+            list.get(1);
+        },
+        function (error) {
+            return error.message == "The index is out of range.";
+        });
+    });
+</script>
