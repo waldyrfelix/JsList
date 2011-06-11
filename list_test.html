@@ -151,9 +151,8 @@
         same(list.get(1), item3);
         same(list.get(2), item4);
     });
-
+	
     module("get");
-
     test("get item in an empty list throws error", function () {
         // arrange
         var list = new List();
@@ -194,4 +193,21 @@
             return error.message == "The index is out of range.";
         });
     });
+	
+	module("isEmpty");
+	test("test when isEmpty is called to an empty list returns true", function(){
+		// arrange
+		var list = new List();
+		
+		// assert
+		ok(list.isEmpty());
+	});
+	test("test when isEmpty is called to a non empty list returns false", function(){
+		// arrange
+		var list = new List();
+		list.add(93);
+		
+		// assert
+		ok(!list.isEmpty());
+	});
 </script>

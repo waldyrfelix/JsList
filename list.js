@@ -11,8 +11,11 @@ function List(){
         empty: function () {
             internalList.splice(0, this.count());
         },
+		isEmpty: function(){
+			return this.count() == 0;
+		},
         get: function (index) {
-            if (this.count() == 0)
+            if (this.isEmpty())
                 throw new Error("The list is empty.");
 				
 			if(index < 0 || index >= this.count())
